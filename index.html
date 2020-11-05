@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      // Component
+      class Conter extends React.Component {
+        constructor(props) {
+          super(props);
+
+          this.state = {
+            counter: 0,
+          };
+        }
+        render() {
+          return (
+            <p style={{ fontSize: "36px", color: "yellowgreen" }}>
+              {this.props.counter}
+            </p>
+          );
+        }
+      }
+
+      // Component
+      class Content extends React.Component {
+        constructor(props) {
+          super(props);
+
+          this.state = {
+            text: "Sono una stringa",
+            isVisible: false,
+            counter: 0,
+            lista: ["albero", "mela", "cane"],
+          };
+        }
+
+        render() {
+          return (
+            <div>
+              {/* Render a list */}
+              {this.state.lista.map((o, i) => {
+                return <p key={i}>{o}</p>;
+              })}
+
+              {/* Counter example, using state */}
+              <Conter counter={this.state.counter} />
+              <button
+                onClick={() => {
+                  this.setState({ counter: this.state.counter + 1 });
+                }}
+              >
+                Click ME
+              </button>
+            </div>
+          );
+        }
+      }
+
+      // Component
+      class Title extends React.Component {
+        render() {
+          return <h1>{this.props.text}</h1>;
+        }
+      }
+
+      // Component that uses Title and Content
+      class App extends React.Component {
+        render() {
+          return (
+            <div>
+              <Title text={this.props.title} />
+              <Content text="Metti mi piace" />
+            </div>
+          );
+        }
+      }
+
+      // Render components on page
+      ReactDOM.render(
+        <App title="Il mio blog post" />,
+        document.getElementById("root")
+      );
+    </script>
+  </body>
+</html>
